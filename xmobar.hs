@@ -7,7 +7,7 @@ Config {
     font = "xft:Fixed-8",
     bgColor = "#000000",
     fgColor = "#ffffff",
-    position = Static { xpos = 0, ypos = 0, width = 3840, height = 32 },
+    position = Static { xpos = 0, ypos = 0, width = 3840, height = 16 },
     lowerOnStart = True,
     commands = [
         Run Weather "KPAO" ["-t","<tempF>F <skyCondition>","-L","64","-H","77","-n","#CEFFAC","-h","#FFB6B0","-l","#96CBFE"] 36000,

@@ -3,7 +3,6 @@
 # Author: Vic Fryzel
 # http://github.com/vicfryzel/xmonad-config
 
-
 # Configure PATH so that we can access our scripts below
 PATH=$PATH:~/.cabal/bin:~/.xmonad/bin
 
@@ -17,13 +16,6 @@ xcompmgr -n &
 
 # Start the system tray
 tray &
-
-# Start two terminals
-gnome-terminal &
-gnome-terminal &
-
-# Start a browser
-google-chrome &
 
 # Start screensaver
 gnome-screensaver &
