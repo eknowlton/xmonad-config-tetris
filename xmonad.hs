@@ -14,6 +14,7 @@ import XMonad.Layout.NoBorders
 import XMonad.Layout.Spiral
 import XMonad.Layout.Tabbed
 import XMonad.Layout.ThreeColumns
+import XMonad.Actions.CycleRecentWS
 import XMonad.Util.Run(spawnPipe)
 import XMonad.Util.EZConfig(additionalKeys)
 import Graphics.X11.ExtraTypes.XF86
@@ -30,6 +31,9 @@ myTerminal = "/usr/bin/xterm"
 
 -- The command to lock the screen or show the screensaver.
 myScreensaver = "/usr/bin/gnome-screensaver-command --lock"
+
+-- The command to put the computer into sleep 
+mySleepCommand = "~/.bin/standby"
 
 -- The command to take a selective screenshot, where you select
 -- what you'd like to capture on the screen.
@@ -65,12 +69,9 @@ myWorkspaces = ["1:term","2:web","3:code","4:db","5:media"] ++ map show [6..9]
 -- 'className' and 'resource' are used below.
 --
 myManageHook = composeAll
-    [ className =? "Chromium"       --> doShift "2:web"
-    , className =? "Google-chrome"  --> doShift "2:web"
-    , resource  =? "desktop_window" --> doIgnore
+    [ resource  =? "desktop_window" --> doIgnore
     , className =? "Gimp"           --> doFloat
     , resource  =? "gpicview"       --> doFloat
-    , className =? "MPlayer"        --> doFloat
     , className =? "stalonetray"    --> doIgnore]
 
 
@@ -144,12 +145,16 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   , ((modMask .|. controlMask, xK_l),
      spawn myScreensaver)
 
+  -- Put the computer into sleep mode 
+  , ((modMask .|. controlMask, xK_s),
+     spawn mySleepCommand)
+
   -- Spawn the launcher using command specified by myLauncher.
   -- Use this to launch programs without a key binding.
   , ((modMask, xK_p),
      spawn myLauncher)
 
-  -- Take a selective screenshot using the command specified by mySelectScreenshot.
+    -- Take a selective screenshot using the command specified by mySelectScreenshot.
   , ((modMask .|. shiftMask, xK_p),
      spawn mySelectScreenshot)
 
@@ -220,6 +225,9 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   -- Move focus to the next window.
   , ((modMask, xK_Tab),
      windows W.focusDown)
+
+  -- Cycle through recent workspaces
+  , ((modMask .|. shiftMask, xK_Tab), cycleRecentWS [xK_Alt_L] xK_Tab xK_grave)
 
   -- Move focus to the next window.
   , ((modMask, xK_j),
@@ -352,9 +360,7 @@ main = do
           , ppSep = "   "
       }
       , manageHook = manageDocks <+> myManageHook
-      , startupHook = setWMName "LG3D"
   }
-
 
 ------------------------------------------------------------------------
 -- Combine it all together
