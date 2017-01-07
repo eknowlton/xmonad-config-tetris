@@ -5,6 +5,7 @@
 import System.IO
 import System.Exit
 import XMonad
+import XMonad.Hooks.FadeInactive (fadeInactiveLogHook)
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
@@ -99,8 +100,8 @@ myLayout = avoidStruts (
 -- Colors and borders
 -- Currently based on the ir_black theme.
 --
-myNormalBorderColor  = "#7c7c7c"
-myFocusedBorderColor = "#ffb6b0"
+myNormalBorderColor  = "#000000"
+myFocusedBorderColor = "#661a00"
 
 -- Colors for text and backgrounds of each tab when in "Tabbed" layout.
 tabConfig = defaultTheme {
@@ -119,7 +120,7 @@ xmobarTitleColor = "#FFB6B0"
 xmobarCurrentWorkspaceColor = "#CEFFAC"
 
 -- Width of the window border in pixels.
-myBorderWidth = 0 
+myBorderWidth = 0
 
 
 ------------------------------------------------------------------------
@@ -362,6 +363,10 @@ main = do
       , manageHook = manageDocks <+> myManageHook
   }
 
+myLogHook :: X ()
+myLogHook = fadeInactiveLogHook fadeAmount
+  where fadeAmount = 0.8
+
 ------------------------------------------------------------------------
 -- Combine it all together
 -- A structure containing your configuration settings, overriding
@@ -387,5 +392,6 @@ defaults = defaultConfig {
     -- hooks, layouts
     layoutHook         = smartBorders $ myLayout,
     manageHook         = myManageHook,
-    startupHook        = myStartupHook
+    startupHook        = myStartupHook,
+    logHook            = myLogHook
 }
