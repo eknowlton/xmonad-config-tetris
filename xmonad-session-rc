@@ -10,5 +10,5 @@ PATH=$PATH:~/.cabal/bin:~/.xmonad/bin
 feh --bg-scale ~/Pictures/shinobi.jpg
 
 # Start a window compositor. This ensures Google Chrome paints correctly.
-compton &
+compton --config ~/.xmonad/compton.conf &
 xfce4-power-manager &
