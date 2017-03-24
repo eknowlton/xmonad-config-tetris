@@ -120,7 +120,7 @@ xmobarTitleColor = "#FFB6B0"
 xmobarCurrentWorkspaceColor = "#CEFFAC"
 
 -- Width of the window border in pixels.
-myBorderWidth = 0
+myBorderWidth = 1
 
 
 ------------------------------------------------------------------------
@@ -337,7 +337,6 @@ myMouseBindings (XConfig {XMonad.modMask = modMask}) = M.fromList $
 -- > logHook = dynamicLogDzen
 --
 
-
 ------------------------------------------------------------------------
 -- Startup hook
 -- Perform an arbitrary action each time xmonad starts or is restarted
@@ -345,15 +344,18 @@ myMouseBindings (XConfig {XMonad.modMask = modMask}) = M.fromList $
 -- per-workspace layout choices.
 --
 -- By default, do nothing.
-myStartupHook = return ()
 
+myStartupHook :: X ()
+myStartupHook = do
+    setWMName "LG3D"
+    spawn "~/.xmonad/xmonad-session-rc"
 
 ------------------------------------------------------------------------
 -- Run xmonad with all the defaults we set up.
 --
 main = do
   xmproc <- spawnPipe "xmobar ~/.xmonad/xmobar.hs"
-  xmonad $ defaults {
+  xmonad $ docks defaults {
       logHook = dynamicLogWithPP $ xmobarPP {
             ppOutput = hPutStrLn xmproc
           , ppTitle = xmobarColor xmobarTitleColor "" . shorten 100
@@ -362,10 +364,6 @@ main = do
       }
       , manageHook = manageDocks <+> myManageHook
   }
-
-myLogHook :: X ()
-myLogHook = fadeInactiveLogHook fadeAmount
-  where fadeAmount = 0.8
 
 ------------------------------------------------------------------------
 -- Combine it all together
@@ -391,7 +389,5 @@ defaults = defaultConfig {
 
     -- hooks, layouts
     layoutHook         = smartBorders $ myLayout,
-    manageHook         = myManageHook,
-    startupHook        = myStartupHook,
-    logHook            = myLogHook
+    startupHook        = myStartupHook
 }

@@ -7,8 +7,7 @@
 PATH=$PATH:~/.cabal/bin:~/.xmonad/bin
 
 # Setup background
-feh --bg-scale ~/Pictures/shinobi.jpg
+feh --bg-scale ~/tetris.jpg &
 
 # Start a window compositor. This ensures Google Chrome paints correctly.
 compton --config ~/.xmonad/compton.conf &
-xfce4-power-manager &
