@@ -28,7 +28,7 @@ import qualified Data.Map        as M
 -- The preferred terminal program, which is used in a binding below and by
 -- certain contrib modules.
 --
-myTerminal = "/usr/bin/xterm"
+myTerminal = "/usr/bin/termite"
 
 -- The command to lock the screen or show the screensaver.
 myScreensaver = "/usr/bin/gnome-screensaver-command --lock"
@@ -38,14 +38,15 @@ mySleepCommand = "~/.bin/standby"
 
 -- The command to take a selective screenshot, where you select
 -- what you'd like to capture on the screen.
-mySelectScreenshot = "select-screenshot"
+mySelectScreenshot = "scrot -s ~/screenshots/%Y-%m-%d.png"
 
 -- The command to take a fullscreen screenshot.
 myScreenshot = "screenshot"
 
 -- The command to use as a launcher, to launch commands that don't have
 -- preset keybindings.
-myLauncher = "$(yeganesh -x -- -fn '-*-terminus-*-r-normal-*-*-120-*-*-*-*-iso8859-*' -nb '#000000' -nf '#FFFFFF' -sb '#7C7C7C' -sf '#CEFFAC')"
+--myLauncher = "$(yeganesh -x -- -fn '-*-terminus-*-r-normal-*-*-120-*-*-*-*-iso8859-*' -nb '#000000' -nf '#FFFFFF' -sb '#7C7C7C' -sf '#CEFFAC')"
+myLauncher = "$($HOME/bin/dmenu_path_recent | dmenu)"
 
 
 ------------------------------------------------------------------------
@@ -155,7 +156,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   , ((modMask, xK_p),
      spawn myLauncher)
 
-    -- Take a selective screenshot using the command specified by mySelectScreenshot.
+    -- Take a selective screenshot using the command specified by mSelectScreenshot.
   , ((modMask .|. shiftMask, xK_p),
      spawn mySelectScreenshot)
 

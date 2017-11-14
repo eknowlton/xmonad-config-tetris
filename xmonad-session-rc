@@ -1,13 +1,8 @@
-#!/bin/sh
-# Script to configure X, start common apps, and start xmonad.
-# Author: Vic Fryzel
-# http://github.com/vicfryzel/xmonad-config
-
-# Configure PATH so that we can access our scripts below
-PATH=$PATH:~/.cabal/bin:~/.xmonad/bin
-
-# Setup background
-feh --bg-scale ~/tetris.jpg &
+#!/usr/bin/env bash
 
 # Start a window compositor. This ensures Google Chrome paints correctly.
 compton --config ~/.xmonad/compton.conf &
+
+# set background image
+feh --bg-scale ~/mystique.png &
+
