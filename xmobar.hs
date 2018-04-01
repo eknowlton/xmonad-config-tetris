@@ -12,7 +12,7 @@ Config {
     allDesktops = True,
     commands = [
         Run MultiCpu ["-t","<total0> <total1> <total2> <total3>","-L","30","-H","60","-h","#FFB6B0","-l","#CEFFAC","-n","#FFFFCC","-w","3"] 10,
-        Run CoreTemp ["-t", "<core0> <core1> <core2> ", "-L", "0", "-H", "2", "-l", "lightblue", "-n", "white", "-h", "red"] 50,
+        Run CoreTemp ["-t", "<core0> <core1> <core2>", "-L", "0", "-H", "2", "-l", "lightblue", "-n", "white", "-h", "red"] 50,
         Run Memory ["-t","<usedratio>%","-H","8192","-L","4096","-h","#FFB6B0","-l","#CEFFAC","-n","#FFFFCC"] 10,
         Run Swap ["-t","<usedratio>%","-H","1024","-L","512","-h","#FFB6B0","-l","#CEFFAC","-n","#FFFFCC"] 10,
         Run Network "wlp4s0" ["-t","<rx>, <tx>","-H","200","-L","10","-h","#FFB6B0","-l","#CEFFAC","-n","#FFFFCC"] 10,
@@ -36,5 +36,5 @@ Config {
     ],
     sepChar = "%",
     alignSep = "}{",
-    template = "%StdinReader% }{ CPU %multicpu% %coretemp% MEM %memory% %swap% NET %wlp4s0% [ %battery% ] [ <fc=#FFFFCC>%date%</fc> ]"
+    template = "%StdinReader% }{ %multicpu% %coretemp% M %memory% %swap% IO %wlp4s0% [ %battery% ] [ <fc=#FFFFCC>%date%</fc> ]"
 }

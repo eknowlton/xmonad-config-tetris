@@ -45,15 +45,16 @@ myScreenshot = "screenshot"
 
 -- The command to use as a launcher, to launch commands that don't have
 -- preset keybindings.
---myLauncher = "$(yeganesh -x -- -fn '-*-terminus-*-r-normal-*-*-120-*-*-*-*-iso8859-*' -nb '#000000' -nf '#FFFFFF' -sb '#7C7C7C' -sf '#CEFFAC')"
-myLauncher = "$($HOME/bin/dmenu_path_recent | dmenu)"
-
+myLauncher = "$(yeganesh -x)"
+--myLauncher = "$(dmenu_path | dmenu_run)"
+--myLauncher = "$(xlunch --multiple --input ~/.config/xlunch/entries.dsv -s 48)"
+--myLauncher = "$(dmenu_recent | dmenu"
 
 ------------------------------------------------------------------------
 -- Workspaces
 -- The default number of workspaces (virtual screens) and their names.
 --
-myWorkspaces = ["1:term","2:web","3:code","4:db","5:media"] ++ map show [6..9]
+myWorkspaces = [] ++ map show [1..9]
 
 
 ------------------------------------------------------------------------
@@ -95,7 +96,6 @@ myLayout = avoidStruts (
     Full |||
     spiral (6/7)) |||
     noBorders (fullscreenFull Full)
-
 
 ------------------------------------------------------------------------
 -- Colors and borders
@@ -175,34 +175,6 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   -- Increase volume.
   , ((0, xF86XK_AudioRaiseVolume),
      spawn "amixer -q set Master 10%+")
- 
-  -- Mute volume.
-  , ((modMask .|. controlMask, xK_m),
-     spawn "amixer -q set Master toggle")
-
-  -- Decrease volume.
-  , ((modMask .|. controlMask, xK_j),
-     spawn "amixer -q set Master 10%-")
-
-  -- Increase volume.
-  , ((modMask .|. controlMask, xK_k),
-     spawn "amixer -q set Master 10%+")
-
-  -- Audio previous.
-  , ((0, 0x1008FF16),
-     spawn "")
-
-  -- Play/pause.
-  , ((0, 0x1008FF14),
-     spawn "")
-
-  -- Audio next.
-  , ((0, 0x1008FF17),
-     spawn "")
-
-  -- Eject CD tray.
-  , ((0, 0x1008FF2C),
-     spawn "eject -T")
 
   --------------------------------------------------------------------
   -- "Standard" xmonad key bindings
@@ -220,16 +192,9 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   , ((modMask .|. shiftMask, xK_space),
      setLayout $ XMonad.layoutHook conf)
 
-  -- Resize viewed windows to the correct size.
-  , ((modMask, xK_n),
-     refresh)
-
   -- Move focus to the next window.
   , ((modMask, xK_Tab),
      windows W.focusDown)
-
-  -- Cycle through recent workspaces
-  , ((modMask .|. shiftMask, xK_Tab), cycleRecentWS [xK_Alt_L] xK_Tab xK_grave)
 
   -- Move focus to the next window.
   , ((modMask, xK_j),
@@ -275,9 +240,6 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   , ((modMask, xK_period),
      sendMessage (IncMasterN (-1)))
 
-  -- Toggle the status bar gap.
-  -- TODO: update this binding with avoidStruts, ((modMask, xK_b),
-
   -- Quit xmonad.
   , ((modMask .|. shiftMask, xK_q),
      io (exitWith ExitSuccess))
@@ -298,7 +260,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   -- mod-{w,e,r}, Switch to physical/Xinerama screens 1, 2, or 3
   -- mod-shift-{w,e,r}, Move client to screen 1, 2, or 3
   [((m .|. modMask, key), screenWorkspace sc >>= flip whenJust (windows . f))
-      | (key, sc) <- zip [xK_w, xK_e, xK_r] [0..]
+      | (key, sc) <- zip [xK_w, xK_e, xK_r] [1,0,2]
       , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]]
 
 
